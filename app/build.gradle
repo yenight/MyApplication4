@@ -20,20 +20,20 @@ android {
         }
     }
 
-    signingConfigs {
-        one {
-            keyAlias KEY_ALIAS
-            keyPassword KEY_PASSWORD
-            storeFile rootProject.file(KEYSTORE_FILE)
-            storePassword KEYSTORE_PASSWORD
-        }
-        two {
-            keyAlias KEY_ALIAS
-            keyPassword KEY_PASSWORD
-            storeFile rootProject.file(KEYSTORE_FILE)
-            storePassword KEYSTORE_PASSWORD
-        }
-    }
+//    signingConfigs {
+//        one {
+//            keyAlias KEY_ALIAS
+//            keyPassword KEY_PASSWORD
+//            storeFile rootProject.file(KEYSTORE_FILE)
+//            storePassword KEYSTORE_PASSWORD
+//        }
+//        two {
+//            keyAlias KEY_ALIAS
+//            keyPassword KEY_PASSWORD
+//            storeFile rootProject.file(KEYSTORE_FILE)
+//            storePassword KEYSTORE_PASSWORD
+//        }
+//    }
 
     flavorDimensions "app"
     productFlavors {
@@ -42,7 +42,7 @@ android {
             dimension "app"
             versionCode 1
             versionName "1.0"
-            signingConfig signingConfigs.one
+            //signingConfig signingConfigs.one
             manifestPlaceholders = [text_activity:"This is a Activity A",text_application:"This is a Application A"]
         }
         two {
@@ -50,7 +50,7 @@ android {
             dimension "app"
             versionCode 2
             versionName "2.0"
-            signingConfig signingConfigs.two
+            //signingConfig signingConfigs.two
             manifestPlaceholders = [text_activity:"This is a Activity B",text_application:"This is a Application B"]
         }
     }
@@ -78,44 +78,42 @@ android {
             fileArray.add(outputFile.parentFile.absolutePath + java.io.File.separator + fileName)
         }
     }
-
-    //将打包后的apk复制到某个地方
-    build {
-        doLast() {
-            forEachFile(fileArray)
-        }
-    }
-
-    afterEvaluate {
-        assembleRelease.doLast {
-            //遍历文件数组并进行操作
-            forEachFile(fileArray)
-        }
-        assembleDebug.doLast {
-            forEachFile(fileArray)
-        }
-    }
-
+//    //将打包后的apk复制到某个地方
+//    build {
+//        doLast() {
+//            forEachFile(fileArray)
+//        }
+//    }
+//
+//    afterEvaluate {
+//        assembleRelease.doLast {
+//            //遍历文件数组并进行操作
+//            forEachFile(fileArray)
+//        }
+//        assembleDebug.doLast {
+//            forEachFile(fileArray)
+//        }
+//    }
 }
 
-def forEachFile(fileArray) {
-    fileArray.forEach { file ->
-        //遍历进行文件操作
-        println "任务3遍历apk文件"
-        rename_and_moveout_apk(file)
-    }
-}
-
-
-def rename_and_moveout_apk(originalFile) {
-    def intoFile = "D:\\"
-    copy {
-        from originalFile
-        into intoFile
-        rename("${android.defaultConfig.versionName}_${android.defaultConfig.versionCode}_", "")
-        println "任务4复制apk到指定位置:" + intoFile
-    }
-}
+//def forEachFile(fileArray) {
+//    fileArray.forEach { file ->
+//        //遍历进行文件操作
+//        println "任务3遍历apk文件"
+//        rename_and_moveout_apk(file)
+//    }
+//}
+//
+//
+//def rename_and_moveout_apk(originalFile) {
+//    def intoFile = "D:\\"
+//    copy {
+//        from originalFile
+//        into intoFile
+//        rename("${android.defaultConfig.versionName}_${android.defaultConfig.versionCode}_", "")
+//        println "任务4复制apk到指定位置:" + intoFile
+//    }
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
