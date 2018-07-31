@@ -1,0 +1,124 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.example.yewi2.myapplication4"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+        }
+    }
+
+    signingConfigs {
+        one {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile rootProject.file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
+        }
+        two {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile rootProject.file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
+        }
+    }
+
+    flavorDimensions "app"
+    productFlavors {
+        one {
+            applicationId "com.example.one"
+            dimension "app"
+            versionCode 1
+            versionName "1.0"
+            signingConfig signingConfigs.one
+            manifestPlaceholders = [text_activity:"This is a Activity A",text_application:"This is a Application A"]
+        }
+        two {
+            applicationId "com.example.two"
+            dimension "app"
+            versionCode 2
+            versionName "2.0"
+            signingConfig signingConfigs.two
+            manifestPlaceholders = [text_activity:"This is a Activity B",text_application:"This is a Application B"]
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    def fileArray = []
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            def fileName
+            def variantProd
+            if (outputFile != null && outputFile.name.contains('release')) {
+                variantProd = variant.productFlavors[0]
+                fileName = "${variantProd.versionName}_${variantProd.versionCode}" + "_${variantProd.name}_Release.apk"
+            } else if (outputFile != null && outputFile.name.contains('debug')) {
+                variantProd = variant.productFlavors[0]
+                fileName = "${variantProd.versionName}_${variantProd.versionCode}" + "_${variantProd.name}_Debug.apk"
+            }
+            println "自定义输出apk的名字:" + fileName
+            outputFileName = fileName
+            println "输出apk地址:" + outputFile.parentFile.absolutePath + java.io.File.separator + fileName
+            fileArray.add(outputFile.parentFile.absolutePath + java.io.File.separator + fileName)
+        }
+    }
+
+    //将打包后的apk复制到某个地方
+    build {
+        doLast() {
+            forEachFile(fileArray)
+        }
+    }
+
+    afterEvaluate {
+        assembleRelease.doLast {
+            //遍历文件数组并进行操作
+            forEachFile(fileArray)
+        }
+        assembleDebug.doLast {
+            forEachFile(fileArray)
+        }
+    }
+
+}
+
+def forEachFile(fileArray) {
+    fileArray.forEach { file ->
+        //遍历进行文件操作
+        println "任务3遍历apk文件"
+        rename_and_moveout_apk(file)
+    }
+}
+
+
+def rename_and_moveout_apk(originalFile) {
+    def intoFile = "D:\\"
+    copy {
+        from originalFile
+        into intoFile
+        rename("${android.defaultConfig.versionName}_${android.defaultConfig.versionCode}_", "")
+        println "任务4复制apk到指定位置:" + intoFile
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
+    testImplementation 'junit:junit:4.12'
+}
