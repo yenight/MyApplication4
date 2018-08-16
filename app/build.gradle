@@ -60,10 +60,10 @@ android {
             def variantProd
             if (outputFile != null && outputFile.name.contains('release')) {
                 variantProd = variant.productFlavors[0]
-                fileName = "${variantProd.versionName}" + "_${variantProd.name}_Release.apk"
+                fileName = "${variantProd.name}_Release.apk"
             } else if (outputFile != null && outputFile.name.contains('debug')) {
                 variantProd = variant.productFlavors[0]
-                fileName = "${variantProd.versionName}" + "_${variantProd.name}_Debug.apk"
+                fileName = "${variantProd.name}_Debug.apk"
             }
             println "apk name:" + fileName
             outputFileName = fileName
