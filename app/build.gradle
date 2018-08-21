@@ -22,7 +22,7 @@ android {
 
     flavorDimensions "app"
     productFlavors {
-        dev {
+        OOCLLITE_dev {
             applicationId "com.example.dev"
             dimension "app"
             versionCode 3
@@ -31,7 +31,7 @@ android {
             //signingConfig signingConfigs.one
             manifestPlaceholders = [text_activity:"This is a Activity A",text_application:"This is a Application A"]
         }
-        prod {
+        OOCLLITE_prod {
             applicationId "com.example.prod"
             dimension "app"
             versionCode 3
@@ -40,7 +40,7 @@ android {
             //signingConfig signingConfigs.two
             manifestPlaceholders = [text_activity:"This is a Activity B",text_application:"This is a Application B"]
         }
-        qa {
+        OOCLLITE_qa {
             applicationId "com.example.qa"
             dimension "app"
             versionCode 3
