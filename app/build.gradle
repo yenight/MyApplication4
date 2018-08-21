@@ -27,8 +27,7 @@ android {
             dimension "app"
             versionCode 3
             versionName "3.0.0"
-            host "127.0.0.1"
-            flurrykey "123"
+            buildConfigField 'String', 'Host', '"http://127.0.0.1:5000/"'
             //signingConfig signingConfigs.one
             manifestPlaceholders = [text_activity:"This is a Activity A",text_application:"This is a Application A"]
         }
@@ -37,8 +36,7 @@ android {
             dimension "app"
             versionCode 3
             versionName "3.0.1"
-            host "127.0.0.2"
-            flurrykey "456"
+            buildConfigField 'String', 'Host', '"http://127.0.0.2:5000/"'
             //signingConfig signingConfigs.two
             manifestPlaceholders = [text_activity:"This is a Activity B",text_application:"This is a Application B"]
         }
@@ -47,8 +45,7 @@ android {
             dimension "app"
             versionCode 3
             versionName "3.0.2"
-            host "127.0.0.3"
-            flurrykey "789"
+            buildConfigField 'String', 'Host', '"http://127.0.0.3:5000/"'
             //signingConfig signingConfigs.two
             manifestPlaceholders = [text_activity:"This is a Activity B",text_application:"This is a Application B"]
         }
