@@ -22,31 +22,28 @@ android {
 
     flavorDimensions "app"
     productFlavors {
-        OOCLLITE_dev {
+        dev {
             applicationId "com.example.dev"
             dimension "app"
             versionCode 3
             versionName "3.0.0"
             buildConfigField 'String', 'Host', '"http://127.0.0.1:5000/"'
-            //signingConfig signingConfigs.one
             manifestPlaceholders = [text_activity:"This is a Activity A",text_application:"This is a Application A"]
         }
-        OOCLLITE_prod {
+        prod {
             applicationId "com.example.prod"
             dimension "app"
             versionCode 3
             versionName "3.0.1"
             buildConfigField 'String', 'Host', '"http://127.0.0.2:5000/"'
-            //signingConfig signingConfigs.two
             manifestPlaceholders = [text_activity:"This is a Activity B",text_application:"This is a Application B"]
         }
-        OOCLLITE_qa {
+        qa {
             applicationId "com.example.qa"
             dimension "app"
             versionCode 3
             versionName "3.0.2"
             buildConfigField 'String', 'Host', '"http://127.0.0.3:5000/"'
-            //signingConfig signingConfigs.two
             manifestPlaceholders = [text_activity:"This is a Activity B",text_application:"This is a Application B"]
         }
     }
